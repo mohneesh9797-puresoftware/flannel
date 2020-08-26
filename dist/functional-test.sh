@@ -14,8 +14,8 @@ if [[ ${ARCH} == "ppc64le" ]]; then
     ETCD_IMG+="-ppc64le"
     ETCDCTL_IMG+="-ppc64le"
 elif [[ ${ARCH} == "arm64" ]]; then
-    ETCD_IMG+="-arm64"
-    ETCDCTL_IMG+="-arm64"
+    ETCD_IMG="${ETCD_IMG:-quay.io/coreos/etcd:v3.2.7-arm64}"
+    ETCDCTL_IMG="quay.io/coreos/etcd:v3.2.7-arm64"
 fi
 
 setup_suite() {
