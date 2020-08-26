@@ -185,14 +185,14 @@ release-tests: release-etcd-tests release-k8s-tests
 
 release-etcd-tests: bash_unit
 	# Run the functional tests with different etcd versions.
-	if $(shell uname -m) = aarch64 ; then 
-		ETCD_IMG="quay.io/coreos/etcd:v3.2.7"  ./bash_unit dist/functional-test.sh
-	else		
-		ETCD_IMG="quay.io/coreos/etcd:latest"  ./bash_unit dist/functional-test.sh
-		ETCD_IMG="quay.io/coreos/etcd:v3.2.7"  ./bash_unit dist/functional-test.sh
-		# Etcd v2 docker image format is different. Override the etcd binary location so it works.
-		ETCD_IMG="quay.io/coreos/etcd:v2.3.8"  ETCD_LOCATION=" " ./bash_unit dist/functional-test.sh
-	fi
+	#if $(shell uname -m) = aarch64 ; then 
+	ETCD_IMG="quay.io/coreos/etcd:v3.2.7"  ./bash_unit dist/functional-test.sh
+	#else		
+	#	ETCD_IMG="quay.io/coreos/etcd:latest"  ./bash_unit dist/functional-test.sh
+	#	ETCD_IMG="quay.io/coreos/etcd:v3.2.7"  ./bash_unit dist/functional-test.sh
+	#	# Etcd v2 docker image format is different. Override the etcd binary location so it works.
+	#	ETCD_IMG="quay.io/coreos/etcd:v2.3.8"  ETCD_LOCATION=" " ./bash_unit dist/functional-test.sh
+	#fi
 release-k8s-tests: bash_unit
 	# Run the functional tests with different k8s versions. Currently these are the latest point releases.
 	# This list should be updated during the release process.
