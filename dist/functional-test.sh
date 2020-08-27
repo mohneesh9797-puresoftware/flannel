@@ -1,9 +1,9 @@
 #!/bin/bash
 
 ARCH="${ARCH:-amd64}"
-ETCD_IMG="${ETCD_IMG:-quay.io/coreos/etcd:v3.2.7}"
+ETCD_IMG="${ETCD_IMG:-quay.io/coreos/etcd:v3.2.7-arm64}"
 # etcd might take a bit to come up - use a known etcd version so we know we have etcdctl available
-ETCDCTL_IMG="quay.io/coreos/etcd:v3.2.7"
+ETCDCTL_IMG="quay.io/coreos/etcd:v3.2.7-arm64"
 ETCD_LOCATION="${ETCD_LOCATION:-etcd}"
 FLANNEL_NET="${FLANNEL_NET:-10.10.0.0/16}"
 TAG=`git describe --tags --dirty`
@@ -36,11 +36,11 @@ teardown_suite() {
 setup() {
     # rm any old flannel container that maybe running, ignore error as it might not exist
     docker rm -f flannel-e2e-test-flannel1 >/dev/null 2>/dev/null
-    assert "docker run --name=flannel-e2e-test-flannel1 -d $FLANNEL_DOCKER_IMAGE --etcd-endpoints=$etcd_endpt -v 10 >/dev/null"
+    assert "docker run --name=flannel-e2e-test-flannel1 -d $FLANNEL_DOCKER_IMAGE --etcd-endpoints=$etcd_endpt -e ETCD_UNSUPPORTED_ARCH=arm64 -v 10 >/dev/null"
 
     # rm any old flannel container that maybe running, ignore error as it might not exist
     docker rm -f flannel-e2e-test-flannel2 >/dev/null 2>/dev/null
-    assert "docker run --name flannel-e2e-test-flannel2 -d $FLANNEL_DOCKER_IMAGE --etcd-endpoints=$etcd_endpt -v 10 >/dev/null"
+    assert "docker run --name flannel-e2e-test-flannel2 -d $FLANNEL_DOCKER_IMAGE --etcd-endpoints=$etcd_endpt -e ETCD_UNSUPPORTED_ARCH=arm64 -v 10 >/dev/null"
 }
 
 teardown() {
