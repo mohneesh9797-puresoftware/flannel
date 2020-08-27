@@ -3,7 +3,7 @@
 ARCH="${ARCH:-amd64}"
 ETCD_IMG="${ETCD_IMG:-quay.io/coreos/etcd:v3.2.7}"
 # etcd might take a bit to come up - use a known etcd version so we know we have etcdctl available
-ETCDCTL_IMG="quay.io/coreos/etcd:v3.2.7-arm64"
+ETCDCTL_IMG="quay.io/coreos/etcd:v3.2.7"
 ETCD_LOCATION="${ETCD_LOCATION:-etcd}"
 FLANNEL_NET="${FLANNEL_NET:-10.10.0.0/16}"
 TAG=`git describe --tags --dirty`
@@ -14,8 +14,8 @@ if [[ ${ARCH} == "ppc64le" ]]; then
     ETCD_IMG+="-ppc64le"
     ETCDCTL_IMG+="-ppc64le"
 elif [[ ${ARCH} == "arm64" ]]; then
-    ETCD_IMG="${ETCD_IMG:-quay.io/coreos/etcd:v3.2.7-arm64}"
-    ETCDCTL_IMG="quay.io/coreos/etcd:v3.2.7-arm64"
+    ETCD_IMG+="-arm64"
+    ETCDCTL_IMG+="-arm64"
 fi
 
 setup_suite() {
