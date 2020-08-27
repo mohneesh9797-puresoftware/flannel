@@ -40,7 +40,7 @@ setup() {
 
     # rm any old flannel container that maybe running, ignore error as it might not exist
     docker rm -f flannel-e2e-test-flannel2 >/dev/null 2>/dev/null
-    assert "docker run --name flannel-e2e-test-flannel2 -d --privileged $FLANNEL_DOCKER_IMAGE --etcd-endpoints=$etcd_endpt -v 10 >/dev/null"
+    assert "docker run --name flannel-e2e-test-flannel2 -d $FLANNEL_DOCKER_IMAGE --etcd-endpoints=$etcd_endpt -v 10 >/dev/null"
 }
 
 teardown() {
